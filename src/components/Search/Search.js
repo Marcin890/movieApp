@@ -1,13 +1,20 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Input } from "./Search.css";
+import { Input, InputWrapper } from "./Search.css";
 import { connect } from "react-redux";
-import { fetchMovies, changeSearch } from "data/actions";
+import { fetchMovies, changeSearch, changePage } from "data/actions";
 
-const Search = ({ searchMovie, fetchMovies, changeSearch }) => {
+const Search = ({
+  searchMovie,
+  fetchMovies,
+  changeSearch,
+  changePage,
+  page,
+}) => {
   const getMovies = () => {
     if (searchMovie.length > 2) {
-      fetchMovies(searchMovie);
+      fetchMovies(searchMovie, page);
+      changePage(1);
     }
   };
 
@@ -17,14 +24,16 @@ const Search = ({ searchMovie, fetchMovies, changeSearch }) => {
 
   return (
     <>
-      <Input type="text" onChange={handleChange} />
-      <button
-        value={searchMovie}
-        onClick={getMovies}
-        disabled={searchMovie.length < 3}
-      >
-        Search
-      </button>
+      <InputWrapper>
+        <Input type="text" onChange={handleChange} value={searchMovie} />
+        <Input
+          type="submit"
+          value="Search"
+          onClick={getMovies}
+          disabled={searchMovie.length < 3}
+        ></Input>
+      </InputWrapper>
+
       {searchMovie.length < 3 ? <p>Enter at least 3 characters</p> : ""}
     </>
   );
@@ -32,6 +41,7 @@ const Search = ({ searchMovie, fetchMovies, changeSearch }) => {
 const mapDispatchToProps = {
   fetchMovies,
   changeSearch,
+  changePage,
 };
 
 const mapStateToProps = (state) => {
@@ -40,6 +50,7 @@ const mapStateToProps = (state) => {
     number: state.number,
     searchMovie: state.movies.searchMovie,
     loadingState: state.movies.loadingState,
+    page: state.movies.page,
   };
 };
 

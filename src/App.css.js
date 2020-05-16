@@ -2,7 +2,7 @@ import styled from "styled-components";
 export const AppWrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.black.medium};
   flex-wrap: wrap;
-  padding: 80px 0;
+  padding: 40px 0;
   min-height: 100vh;
 `;
 

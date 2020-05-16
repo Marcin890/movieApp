@@ -1,16 +1,27 @@
 import React from "react";
-import { Container } from "./Movie.css";
+import {
+  Container,
+  MoviePoster,
+  MovieDescription,
+  MovieWrapper,
+  MoviePosterWrapper,
+} from "./Movie.css";
 import PropTypes from "prop-types";
 const Movie = ({ movie }) => {
+  const posterLink =
+    movie.Poster !== "N/A" ? movie.Poster : "images/noposter.jpg";
+
   return (
     <>
       <Container key={movie.imdbID}>
-        <p>
-          {movie.Title} {movie.Year}
-        </p>
-        <p>
-          <img src={movie.Poster} alt="" />
-        </p>
+        <MovieWrapper>
+          <MoviePosterWrapper>
+            <MoviePoster src={posterLink} />
+          </MoviePosterWrapper>
+          <MovieDescription>
+            <p>{movie.Title}</p>
+          </MovieDescription>
+        </MovieWrapper>
       </Container>
     </>
   );

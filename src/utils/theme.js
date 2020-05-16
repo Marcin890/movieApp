@@ -3,6 +3,8 @@ export default {
     xs: 5,
     sm: 10,
     xl: 20,
+    xxl: 40,
+    xxxl: 60,
   },
   colors: {
     black: {

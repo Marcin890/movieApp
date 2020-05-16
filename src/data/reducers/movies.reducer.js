@@ -1,6 +1,7 @@
 import {
   LOADING_STATES,
   CHANGE_SEARCH,
+  CHANGE_PAGE,
   FETCH_MOVIES,
   FETCH_MOVIES_REQUEST,
   FETCH_MOVIES_SUCCESS,
@@ -11,6 +12,8 @@ const initialState = {
   loadingState: {},
   movies: [],
   searchMovie: "tree",
+  page: 1,
+  totalResults: 1,
 };
 
 export const movies = (state = initialState, action) => {
@@ -32,6 +35,7 @@ export const movies = (state = initialState, action) => {
         ...state,
         movies: [...action.movies],
         loadingState: newLoadingState,
+        totalResults: action.totalResults,
       };
     case FETCH_MOVIES_FAILURE:
       delete newLoadingState.FETCH_MOVIES_REQUEST;
@@ -45,6 +49,11 @@ export const movies = (state = initialState, action) => {
       return {
         ...state,
         searchMovie: action.movie,
+      };
+    case CHANGE_PAGE:
+      return {
+        ...state,
+        page: action.page,
       };
 
     default:
